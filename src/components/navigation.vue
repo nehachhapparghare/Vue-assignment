@@ -6,7 +6,7 @@
           <v-icon>home</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <p v-on:click="navigate('/blog1')">Home</p>
+          <p v-on:click="navigate('./home')">Home</p>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile>
@@ -14,7 +14,7 @@
           <v-icon>contact_mail</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <p v-on:click="navigate('/blog2')">Contact</p>
+          <p v-on:click="navigate('/blog1')">Blog</p>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>

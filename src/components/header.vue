@@ -7,7 +7,7 @@
         <strong>Welcome to Restaurant</strong>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-on:click="myLoggout" color="primary">Logout</v-btn>
+      <v-btn v-on:click="myLoggout('./')" color="primary">Logout</v-btn>
     </v-toolbar>
     <app-navigation :drawer="drawer"></app-navigation>
   </v-card>
@@ -27,9 +27,9 @@ export default {
     };
   },
   methods: {
-    myLoggout() {
+    myLoggout(name) {
       localStorage.removeItem("name");
-      this.$emit("returnLogin");
+       this.$router.push(name);
     }
   }
 };

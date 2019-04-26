@@ -4,8 +4,12 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm6 md4>
           <v-card class="elevation-12">
-            <v-card-title>{{ title }}</v-card-title>
-            <v-card-text>{{ text }}</v-card-text>
+            <v-card-title>
+              <h3>{{ title }}</h3>
+            </v-card-title>
+            <v-card-text>
+              <h4>{{ text }}</h4>
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
@@ -21,8 +25,8 @@ export default {
   name: "blog1",
   data() {
     return {
-      title: "Blog1",
-      text: "welcome to page"
+      title: "Redirected to Blog",
+      text: "Welcome to Page"
     };
   }
 };

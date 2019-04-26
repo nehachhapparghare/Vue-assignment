@@ -56,7 +56,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn v-on:click="loginSucess('./menu')">OK</v-btn>
+              <v-btn v-on:click="loginSucess('./home')">OK</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
