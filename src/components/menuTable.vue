@@ -158,7 +158,6 @@ export default {
       this.flag = true;
     },
     addItems() {
-      console.log(this.selected);
       this.newArr = this.orderedItems.concat(this.selected);
       this.showList = true;
     },
