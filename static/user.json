@@ -1,0 +1,32 @@
+{
+    "user": [
+        {
+            "id": 1,
+            "name": "Neha",
+            "email": "neha@gmail.com",
+            "password": "Neha@123",
+            "type": "staff"
+        },
+        {
+            "id": 2,
+            "name": "Ajinkya",
+            "email": "ajink@gmail.com",
+            "password": "ajink@123",
+            "type": "staff"
+        },
+        {
+            "id": 3,
+            "name": "Ameya",
+            "email": "ameya@gmail.com",
+            "password": "ameya@123",
+            "type": "staff"
+        },
+        {
+            "id": 4,
+            "name": "Kartik",
+            "email": "kartik@gmail.com",
+            "password": "kartik@123",
+            "type": "staff"
+        }
+    ]
+}

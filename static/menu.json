@@ -1,0 +1,36 @@
+{
+    "headers": [
+    
+        {  
+            "text": "Item",
+            "value": "item"
+        },
+        {
+            "text": "Price",
+            "value": "price"
+        }
+ 
+    ],
+    "menu": [
+        {
+            "id": 1,
+            "item": "Pasta",
+            "price": "Rs 120"
+        },
+        {
+            "id": 2,
+            "item": "Pizza",
+            "price": "Rs 200"
+        },
+        {
+            "id": 3,
+            "item": "Burger",
+            "price": "Rs 80"
+        },
+        {
+            "id": 4,
+            "item": "French fries",
+            "price": "Rs 60"
+        }
+    ]
+}
