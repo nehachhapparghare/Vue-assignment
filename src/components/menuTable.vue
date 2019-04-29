@@ -21,8 +21,8 @@
             </v-card-title>
 
             <v-data-table
-              :headers="headers"
-              :items="list"
+              :headers="getHeaders"
+              :items="getList"
               hide-actions
               class="elevation-3"
               :search="search"
@@ -86,7 +86,7 @@
             <v-card-title>
               <h1>Add To Cart</h1>
             </v-card-title>
-            <v-data-table :headers="headers" :items="newArr" hide-actions select-all>
+            <v-data-table :headers="getHeaders" :items="cartItems" hide-actions select-all>
               <template v-slot:headers="props">
                 <th v-for="header in props.headers" :key="header.text">{{ header.text }}</th>
               </template>
@@ -97,7 +97,7 @@
                 </tr>
               </template>
               <!-- <template slot="items" slot-scope="{ props }">
-              <td>{{props.item[header.key]}}</td>
+              <td>{{items[header.value]}}</td>
               </template>-->
             </v-data-table>
             <v-card-actions>
@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { getData } from "./service.js";
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
     data: "",
@@ -138,27 +138,28 @@ export default {
     timeout: 6000,
     newArr: []
   }),
+ 
   created() {
-    getData().then(data1 => {
-      if (this.headers && this.list) {
-        this.headers = data1.headers;
-        this.list = data1.menu;
-      } else {
-        this.noData = true;
-      }
-    });
+    this.$store.dispatch("loadData");
   },
+
+  computed: {
+    ...mapGetters(["getHeaders", "getList", "cartItems"]),
+
+  },
+
   methods: {
     popups(item) {
       this.items = item;
       this.dialog = true;
     },
     resetItems() {
-      this.orderedItems = [];
+      this.$store.state.orderList = [];
       this.flag = true;
     },
     addItems() {
       this.newArr = this.orderedItems.concat(this.selected);
+      this.$store.dispatch("addToWishList", this.newArr);
       this.showList = true;
     },
     toggleAll() {

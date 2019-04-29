@@ -37,7 +37,6 @@ export default {
 
   methods: {
     navigate(name) {
-      console.log("called", name);
       this.$router.push(name);
     }
   }

@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <app-header></app-header>
+    <app-header v-if="isAuthenticated"></app-header>
 
     <router-view></router-view>
 
-    <app-footer></app-footer>
+    <app-footer v-if="isAuthenticated"></app-footer>
   </v-app>
 </template>
 
@@ -18,37 +18,17 @@ export default {
     "app-footer": Footer
   },
   data: () => ({
-    // isAuthenticated: false,
-    // value: 0
+    isAuthenticated: false
   }),
-  // props: {
-  //   type: String,
-  //   required: true
-  // },
+
   created() {
-    console.log(this.$route);
-  },
-  methods: {
-    // showTable() {
-    //   this.isAuthenticated = true;
-    // },
-    // showNav(num) {
-    //   this.value = num;
-    // },
-    // callReturnLogin() {
-    //   this.isAuthenticated = false;
-    // }
+    console.log(this.$route.name);
+    if (this.$route.name == "home") {
+      this.isAuthenticated = true;
+    }
   }
 };
 </script>
 
-<style scoped>
-/* .loginPage {
-  top: 27%;
-  position: relative;
-}
-.menuTable {
-  top: 30%;
-  position: relative;
-} */
+<style>
 </style>

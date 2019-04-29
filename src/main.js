@@ -5,6 +5,7 @@ import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 import VueRouter from 'vue-router'
 import Routes from './routes' 
+import { store } from "./store";
 
 Vue.use(Vuetify, {
   iconfont: 'md'
@@ -17,6 +18,7 @@ const router = new VueRouter({
 });
 
 new Vue({
+  store: store,
   el: '#app',
   components: { App },
   template: '<App/>',

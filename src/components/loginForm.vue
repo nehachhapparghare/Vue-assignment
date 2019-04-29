@@ -124,7 +124,6 @@ export default {
         .catch(error => console.log("error :-", error));
     },
     loginSucess(name) {
-      console.log("called", name);
       this.$router.push(name);
     }
   }
