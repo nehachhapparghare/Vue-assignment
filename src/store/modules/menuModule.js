@@ -1,14 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { getData } from "./service.js";
+import { getData } from "../../service.js";
 
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
+export const menuModule = {
     state: {
         headers: [],
         list: [],
-        orderList: []
+        orderList: [],
+        total: 0,
+        totalPrice: 0
     },
     getters: {
         getHeaders: state => {
@@ -19,16 +17,25 @@ export const store = new Vuex.Store({
         },
         cartItems: state => {
             return state.orderList;
+        },
+        totalCost: state => {
+            return state.totalPrice;
         }
     },
     actions: {
-        loadData({commit}) {
+        loadData({ commit }) {
             getData().then(data1 => {
                 commit('getJsonData', data1)
             });
         },
         addToWishList({ commit }, listOfItems) {
             commit('getWishList', listOfItems)
+        },
+        resetList({ commit }) {
+            commit('getResetWishList')
+        },
+        showTotalPrice({ commit }) {
+            commit('getTotalPrice')
         }
     },
     mutations: {
@@ -38,9 +45,20 @@ export const store = new Vuex.Store({
         },
         getWishList(state, order) {
             state.orderList = order;
-        }
+            state.orderList.filter(el => {
+                state.total += el.price;
+            });
+            state.totalPrice = state.total
+        },
+        getResetWishList(state) {
+            state.orderList = [];
+            state.total = 0;
+            state.totalPrice = 0;
+        } 
     }
-})
+}
+
+
 
 
 

@@ -70,9 +70,6 @@
 </template> 
 
 <script>
-// import { getCredentials } from "./menuTable.js";
-import axios from "axios";
-
 export default {
   data: () => ({
     errors: [],
@@ -87,8 +84,14 @@ export default {
     timeout: 6000,
     text: "Fill all the credentials",
     type: "",
-    name: ""
+    name: "",
+    details: []
   }),
+  computed: {
+    userLogin() {
+      return this.$store.getters.userLogin;
+    }
+  },
   methods: {
     emailRules() {
       return [
@@ -107,10 +110,10 @@ export default {
       ];
     },
     getCredentials() {
-      axios
-        .get("./static/user.json")
-        .then(response => {
-          var finalData = response.data.user.filter(el => {
+      this.$store
+        .dispatch("checkData")
+        .then(() => {
+          this.$store.getters.userLogin.user.filter(el => {
             if (el.email == this.email && el.password == this.password) {
               this.flag = true;
               this.type = el.type;

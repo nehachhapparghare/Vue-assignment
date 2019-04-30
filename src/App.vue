@@ -22,7 +22,7 @@ export default {
   }),
 
   created() {
-    console.log(this.$route.name);
+    // console.log(this.$route.name);
     if (this.$route.name == "home") {
       this.isAuthenticated = true;
     }

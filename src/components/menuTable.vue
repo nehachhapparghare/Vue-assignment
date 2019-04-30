@@ -1,15 +1,11 @@
 <template>
   <v-content>
     <v-container fluid fill-height>
-      <v-layout align-center justify-center>
+      <v-layout align-center justify-center row fill-height>
         <v-flex xs10 md4 mx-2>
-          <v-card class="elevation-3">
+          <v-card class="elevation-3" height="400px">
             <v-card-title>
               <h1>Menu</h1>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn dark color="primary" @click="addItems()">Add Items</v-btn>
-              </v-card-actions>
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
@@ -19,12 +15,10 @@
                 hide-details
               ></v-text-field>
             </v-card-title>
-
             <v-data-table
               :headers="getHeaders"
               :items="getList"
               hide-actions
-              class="elevation-3"
               :search="search"
               v-model="selected"
               select-all
@@ -39,7 +33,11 @@
                       @click.stop="toggleAll"
                     ></v-checkbox>
                   </th>
-                  <th v-for="header in props.headers" :key="header.text">{{ header.text }}</th>
+                  <th
+                    v-for="header in props.headers"
+                    :key="header.text"
+                    class="text-lg-center"
+                  >{{ header.text }}</th>
                 </tr>
               </template>
               <template v-slot:items="props">
@@ -47,12 +45,15 @@
                   <td>
                     <v-checkbox :input-value="props.selected" primary hide-details></v-checkbox>
                   </td>
-                  <td text-centre>{{ props.item.item }}</td>
-                  <td text-centre>{{ props.item.price }}</td>
+                  <td class="text-lg-center">{{ props.item.item }}</td>
+                  <td class="text-lg-center">{{ props.item.price }}</td>
                 </tr>
               </template>
             </v-data-table>
-
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn dark color="primary" @click="addItems()">Add Items</v-btn>
+            </v-card-actions>
             <v-dialog v-model="dialog" transition="dialog-bottom-transition" width="20%">
               <v-card>
                 <v-toolbar dark class="primary">
@@ -82,18 +83,22 @@
           </v-card>
         </v-flex>
         <v-flex xs10 md4 mx-2 v-if="showList">
-          <v-card class="elevation-3">
+          <v-card class="elevation-3" height="400px">
             <v-card-title>
               <h1>Add To Cart</h1>
             </v-card-title>
-            <v-data-table :headers="getHeaders" :items="cartItems" hide-actions select-all>
+            <v-data-table :headers="getHeaders" :items="addedItems" hide-actions select-all>
               <template v-slot:headers="props">
-                <th v-for="header in props.headers" :key="header.text">{{ header.text }}</th>
+                <th
+                  v-for="header in props.headers"
+                  :key="header.text"
+                  class="text-lg-center"
+                >{{ header.text }}</th>
               </template>
               <template v-slot:items="props">
                 <tr>
-                  <td text-centre>{{ props.item.item }}</td>
-                  <td text-centre>{{ props.item.price }}</td>
+                  <td class="text-md-center">{{ props.item.item }}</td>
+                  <td class="text-md-center">{{ props.item.price }}</td>
                 </tr>
               </template>
               <!-- <template slot="items" slot-scope="{ props }">
@@ -105,6 +110,9 @@
               <v-btn dark color="primary" v-on:click="resetItems()">Reset</v-btn>
               <v-btn dark color="primary">Place Order</v-btn>
             </v-card-actions>
+            <v-card-text>
+              <h3>Total : {{cost}}</h3>
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
@@ -136,16 +144,28 @@ export default {
     x: null,
     mode: "",
     timeout: 6000,
-    newArr: []
+    newArr: [],
+    costPrice: 0
   }),
- 
+
   created() {
     this.$store.dispatch("loadData");
   },
 
   computed: {
-    ...mapGetters(["getHeaders", "getList", "cartItems"]),
-
+    getHeaders() {
+      return this.$store.getters.getHeaders;
+    },
+    getList() {
+      return this.$store.getters.getList;
+    },
+    addedItems() {
+      return this.$store.getters.cartItems;
+    },
+    cost() {
+      this.costPrice = this.$store.getters.totalCost
+      return this.$store.getters.totalCost;
+    }
   },
 
   methods: {
@@ -154,8 +174,9 @@ export default {
       this.dialog = true;
     },
     resetItems() {
-      this.$store.state.orderList = [];
+      this.$store.dispatch("resetList");
       this.flag = true;
+      this.costPrice = "";
     },
     addItems() {
       this.newArr = this.orderedItems.concat(this.selected);

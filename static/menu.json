@@ -15,22 +15,22 @@
         {
             "id": 1,
             "item": "Pasta",
-            "price": "Rs 120"
+            "price": 120
         },
         {
             "id": 2,
             "item": "Pizza",
-            "price": "Rs 200"
+            "price": 200
         },
         {
             "id": 3,
             "item": "Burger",
-            "price": "Rs 80"
+            "price": 80
         },
         {
             "id": 4,
             "item": "French fries",
-            "price": "Rs 60"
+            "price": 60
         }
     ]
 }
